@@ -1,7 +1,12 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import filedialog
 import time
 
+def UploadAction(event=None):
+    filename = filedialog.askopenfilename()
+    file = open(filename, "r")
+    print('Selected:', filename)
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -30,6 +35,8 @@ class Application(tk.Frame):
         self.quit = tk.Button(self, text="QUIT", fg="black",
                               command=self.master.destroy)
         self.quit.pack(side="bottom")
+
+        self.addFile = tk.Button(root, text='Open', command=UploadAction())
 
     def say_hi(self):
         list = ["hi", "my", "name", "is", "pablo", "mf"]
