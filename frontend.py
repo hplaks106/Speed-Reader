@@ -10,14 +10,18 @@ class Application(tk.Frame):
         self.pack()
         self.create_widgets()
         self.count = 0
-        self.txt_speed = 200
-        self.textLabel.after(1000, self.say_hi)
+        self.txt_speed = 0
+        # self.textLabel.after(1000, self.say_hi)
 
     def create_widgets(self):
         global var
         var = StringVar()
         self.textLabel = tk.Label(self, textvariable = var)
         self.textLabel.pack(side="top")
+        # Button to Restart Text
+        self.restart = tk.Button(self, text="Restart Text", fg="black",
+                              command=self.restart_txt)
+        self.restart.pack(side="bottom")
         # Button to Play/Pause
         self.pause = tk.Button(self, text="PLAY/PAUSE", fg="black",
                               command=self.pause_txt)
@@ -32,9 +36,7 @@ class Application(tk.Frame):
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
-                self.textLabel.after(self.txt_speed, self.say_hi) # call this method again in 1,000 milliseconds
                 self.count += 1
-            else:
                 self.textLabel.after(self.txt_speed, self.say_hi) # call this method again in 1,000 milliseconds
 
     def pause_txt(self):
@@ -42,6 +44,12 @@ class Application(tk.Frame):
             self.txt_speed = 0
         else:
             self.txt_speed = 200
+            self.textLabel.after(self.txt_speed, self.say_hi)
+
+    def restart_txt(self):
+        self.txt_speed = 0
+        self.count = 0
+        self.textLabel.after(self.txt_speed, self.say_hi)
 
 root = tk.Tk()
 root.geometry("500x500")
