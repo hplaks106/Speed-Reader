@@ -5,4 +5,4 @@ AHHHHHHH GOTTA DO shIt
 ![Plan](plan.jpg)
 
 ## Dependencies
-library [tkinter](https://docs.python.org/3/library/tk.html)
+tkinter [download](https://docs.python.org/3/library/tk.html)
