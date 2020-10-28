@@ -5,6 +5,7 @@ from tkinter import filedialog
 import time
 
 def UploadAction(event=None):
+    # get file from users computer
     filename = filedialog.askopenfilename()
     file = open(filename, "r")
     print('Selected:', filename)
