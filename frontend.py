@@ -16,7 +16,7 @@ class Application(tk.Frame):
         self.create_widgets()
         self.count = 0
         self.txt_speed = 0
-        # self.textLabel.after(1000, self.say_hi)
+        # self.textLabel.after(1000, self.say_hi) ahh
 
     def create_widgets(self):
         global var
