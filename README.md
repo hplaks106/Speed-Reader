@@ -3,3 +3,6 @@ Reading from left to right is outdated and slow. This project allows one to choo
 AHHHHHHH GOTTA DO shIt
 
 ![Plan](plan.jpg)
+
+## Dependencies
+library [tkinter](https://docs.python.org/3/library/tk.html)
