@@ -39,7 +39,7 @@ class Application(tk.Frame):
         self.addFile = tk.Button(self, text='Open', fg="black", command=UploadAction)
         self.addFile.pack(side="bottom")
 
-    def say_hi(self):
+    def display_text(self):
         list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
