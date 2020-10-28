@@ -1,4 +1,4 @@
-""" Program takes PDF file and converts to text."""
+""" Program takes PDF file and converts to text and displays one word at a time."""
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
@@ -22,6 +22,7 @@ class Application(tk.Frame):
     def create_widgets(self):
         global var
         var = StringVar()
+        # enter me here bitch
         self.textLabel = tk.Label(self, textvariable = var)
         self.textLabel.pack(side="top")
         # Button to Restart Text
