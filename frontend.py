@@ -1,3 +1,4 @@
+""" Program takes PDF file and converts to text."""
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
