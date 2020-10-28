@@ -1,4 +1,4 @@
-""" Program takes PDF file and converts to text and displays one word at a time."""
+""" Program takes PDF file and converts to text and displays one word at a time. :)"""
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
