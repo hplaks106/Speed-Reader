@@ -59,6 +59,7 @@ class Application(tk.Frame):
     def restart_txt(self):
         self.txt_speed = 0
         self.count = 0
+        var.set("")
         self.textLabel.after(self.txt_speed, self.display_text)
 
 root = tk.Tk()
