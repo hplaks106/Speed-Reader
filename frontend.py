@@ -18,7 +18,7 @@ class Application(tk.Frame):
         self.create_widgets()
         self.count = 0
         self.txt_speed = 0
-        # self.textLabel.after(1000, self.say_hi)
+        # self.textLabel.after(1000, self.display_text)
 
     def create_widgets(self):
         global var
@@ -41,25 +41,25 @@ class Application(tk.Frame):
         self.addFile = tk.Button(self, text='Open', fg="black", command=UploadAction)
         self.addFile.pack(side="bottom")
 
-    def say_hi(self):
+    def display_text(self):
         list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
                 self.count += 1
-                self.textLabel.after(self.txt_speed, self.say_hi) # call this method again in 1,000 milliseconds
+                self.textLabel.after(self.txt_speed, self.display_text) # call this method again in 1,000 milliseconds
 
     def pause_txt(self):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
             self.txt_speed = 200
-            self.textLabel.after(self.txt_speed, self.say_hi)
+            self.textLabel.after(self.txt_speed, self.display_text)
 
     def restart_txt(self):
         self.txt_speed = 0
         self.count = 0
-        self.textLabel.after(self.txt_speed, self.say_hi)
+        self.textLabel.after(self.txt_speed, self.display_text)
 
 root = tk.Tk()
 root.geometry("500x500")
