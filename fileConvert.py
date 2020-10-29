@@ -1,3 +1,4 @@
+# Please make sure you have modules pdf, pdfminer, and subsequent modules.
 import sys
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
