@@ -1,9 +1,11 @@
+""" Program takes PDF file and converts to text."""
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 import time
 
 def UploadAction(event=None):
+    # get file from users computer
     filename = filedialog.askopenfilename()
     file = open(filename, "r")
     print('Selected:', filename)
