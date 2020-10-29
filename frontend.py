@@ -8,6 +8,7 @@ def UploadAction(event=None):
     # get file from users computer
     filename = filedialog.askopenfilename()
     file = open(filename, "r")
+    return file
     print('Selected:', filename)
 
 class Application(tk.Frame):
@@ -37,11 +38,13 @@ class Application(tk.Frame):
         self.quit = tk.Button(self, text="QUIT", fg="black",
                               command=self.master.destroy)
         self.quit.pack(side="bottom")
+
+
+    def say_hi(self):
         # Button to add local file system
         self.addFile = tk.Button(self, text='Open', fg="black", command=UploadAction)
         self.addFile.pack(side="bottom")
-
-    def say_hi(self):
+        
         list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
