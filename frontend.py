@@ -1,11 +1,11 @@
-""" Program takes PDF file and converts to text and displays one word at a time. :)"""
+""" Program takes PDF file and converts to text and displays one word at a time."""
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 import time
 
 def UploadAction(event=None):
-    # get file from users computer
+    """Gets file from user's computer."""
     filename = filedialog.askopenfilename()
     file = open(filename, "r")
     print('Selected:', filename)
@@ -21,9 +21,10 @@ class Application(tk.Frame):
         # self.textLabel.after(1000, self.say_hi)
 
     def create_widgets(self):
+        """Creates tkinter widgets for the GUI."""
         global var
         var = StringVar()
-        # enter me here bitch
+
         self.textLabel = tk.Label(self, textvariable = var)
         self.textLabel.pack(side="top")
         # Button to Restart Text
@@ -43,6 +44,7 @@ class Application(tk.Frame):
         self.addFile.pack(side="bottom")
 
     def say_hi(self):
+        """Temporary test case sentence output."""
         list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
@@ -51,6 +53,7 @@ class Application(tk.Frame):
                 self.textLabel.after(self.txt_speed, self.say_hi) # call this method again in 1,000 milliseconds
 
     def pause_txt(self):
+        """Pause button stops the text from continously displaying."""
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
@@ -58,6 +61,7 @@ class Application(tk.Frame):
             self.textLabel.after(self.txt_speed, self.say_hi)
 
     def restart_txt(self):
+        """Resets the displayed text to the beginning of the file."""
         self.txt_speed = 0
         self.count = 0
         self.textLabel.after(self.txt_speed, self.say_hi)
