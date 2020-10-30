@@ -1,4 +1,4 @@
-""" Program takes PDF file and converts to text and displays one word at a time."""
+"""Program converts PDF file to text and displays one word at a time."""
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
@@ -6,6 +6,7 @@ import time
 
 class Application(tk.Frame):
     def __init__(self, master=None):
+        """Initialization creates GUI, widgets, and variables."""
         super().__init__(master)
         self.master = master
         self.pack()
@@ -38,14 +39,14 @@ class Application(tk.Frame):
         self.addFile = tk.Button(self, text='Open', fg="black", command=self.UploadAction)
         self.addFile.pack(side="bottom")
 
-    """Temporary test case sentence output."""
     def display_text(self):
+        """Temporary test case sentence output."""
         list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
                 self.count += 1
-                self.textLabel.after(self.txt_speed, self.display_text) # call this method again in 1,000 milliseconds
+                self.textLabel.after(self.txt_speed, self.display_text)
 
     def pause_txt(self):
         """Pause button stops the text from continously displaying."""
