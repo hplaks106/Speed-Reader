@@ -4,12 +4,6 @@ from tkinter import *
 from tkinter import filedialog
 import time
 
-def UploadAction(event=None):
-    """Gets file from user's computer."""
-    filename = filedialog.askopenfilename()
-    file = open(filename, "r")
-    print('Selected:', filename)
-
 class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
@@ -18,6 +12,7 @@ class Application(tk.Frame):
         self.create_widgets()
         self.count = 0
         self.txt_speed = 0
+        self.file = None
         # self.textLabel.after(1000, self.display_text)
 
     def create_widgets(self):
@@ -40,7 +35,7 @@ class Application(tk.Frame):
                               command=self.master.destroy)
         self.quit.pack(side="bottom")
         # Button to add local file system
-        self.addFile = tk.Button(self, text='Open', fg="black", command=UploadAction)
+        self.addFile = tk.Button(self, text='Open', fg="black", command=self.UploadAction)
         self.addFile.pack(side="bottom")
 
     """Temporary test case sentence output."""
@@ -66,6 +61,12 @@ class Application(tk.Frame):
         self.count = 0
         var.set("")
         self.textLabel.after(self.txt_speed, self.display_text)
+
+    def UploadAction(event=None):
+        """Gets file from user's computer."""
+        filename = filedialog.askopenfilename()
+        self.file = open(filename, "r")
+        print('Selected:', filename)
 
 root = tk.Tk()
 root.geometry("500x500")
