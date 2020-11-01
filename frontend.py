@@ -3,6 +3,11 @@ import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 import time
+import fileConvert
+import importlib
+
+moduleName = "fileConvert"
+importlib.import_module(moduleName)
 
 def UploadAction(event=None):
     # get file from users computer
@@ -42,7 +47,7 @@ class Application(tk.Frame):
         self.addFile.pack(side="bottom")
 
     def say_hi(self):
-        list = ["hi", "my", "name", "is", "pablo", "mf"]
+        list = fileConvert.readFile(filename)
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
@@ -61,7 +66,7 @@ class Application(tk.Frame):
         self.count = 0
         self.textLabel.after(self.txt_speed, self.say_hi)
 
-root = tk.Tk()
+root = tk.Tk("Speed Reader Alpha 0.0")
 root.geometry("500x500")
 app = Application(master=root)
 app.mainloop()
