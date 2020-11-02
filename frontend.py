@@ -1,6 +1,6 @@
 """Program converts PDF file to text and displays one word at a time."""
 import tkinter as tk
-from tkinter import *
+from tkinter import StringVar
 from tkinter import filedialog
 
 
