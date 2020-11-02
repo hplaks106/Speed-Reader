@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
-import time
+
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -21,22 +21,23 @@ class Application(tk.Frame):
         global var
         var = StringVar()
 
-        self.textLabel = tk.Label(self, textvariable = var)
+        self.textLabel = tk.Label(self, textvariable=var)
         self.textLabel.pack(side="top")
         # Button to Restart Text
         self.restart = tk.Button(self, text="Restart Text", fg="black",
-                              command=self.restart_txt)
+                                 command=self.restart_txt)
         self.restart.pack(side="bottom")
         # Button to Play/Pause
         self.pause = tk.Button(self, text="PLAY/PAUSE", fg="black",
-                              command=self.pause_txt)
+                               command=self.pause_txt)
         self.pause.pack(side="bottom")
         # Button to terminate program
         self.quit = tk.Button(self, text="QUIT", fg="black",
                               command=self.master.destroy)
         self.quit.pack(side="bottom")
         # Button to add local file system
-        self.addFile = tk.Button(self, text='Open', fg="black", command=self.UploadAction)
+        self.addFile = tk.Button(self, text='Open', fg="black",
+                                 command=self.UploadAction)
         self.addFile.pack(side="bottom")
 
     def display_text(self):
@@ -63,11 +64,12 @@ class Application(tk.Frame):
         var.set("")
         self.textLabel.after(self.txt_speed, self.display_text)
 
-    def UploadAction(event=None):
+    def UploadAction(self):
         """Gets file from user's computer."""
         filename = filedialog.askopenfilename()
         self.file = open(filename, "r")
         print('Selected:', filename)
+
 
 root = tk.Tk()
 root.geometry("500x500")
