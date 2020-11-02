@@ -1,14 +1,15 @@
 # Please make sure you have modules pdf, pdfminer, and subsequent modules.
-import sys
+# import sys
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
-from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
+from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
 import io
 
 
 def filter(character):
-    if character.isalnum() is not True and character != " " and character != "." and character != "?" and character != ":":
+    if (character.isalnum() is not True and character != " "
+            and character != "." and character != "?" and character != ":"):
         return True
     else:
         return False
