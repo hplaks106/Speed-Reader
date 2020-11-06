@@ -2,12 +2,6 @@
 import tkinter as tk
 from tkinter import StringVar
 from tkinter import filedialog
-import time
-import fileConvert
-import importlib
-
-moduleName = "fileConvert"
-importlib.import_module(moduleName)
 
 
 class Application(tk.Frame):
@@ -46,10 +40,9 @@ class Application(tk.Frame):
                                  command=self.UploadAction)
         self.addFile.pack(side="bottom")
 
-
     def display_text(self):
         """Temporary test case sentence output."""
-        list = fileConvert.readFile(filename)
+        list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
@@ -78,7 +71,7 @@ class Application(tk.Frame):
         print('Selected:', filename)
 
 
-root = tk.Tk("Speed Reader Alpha 0.0")
+root = tk.Tk()
 root.geometry("500x500")
 app = Application(master=root)
 app.mainloop()
