@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html land = "en-US">
+<style href="style.css"></style>
+
+<head>
+  <meta charset = "UTF-8">
+  <title>Speed-Reader</title>
+  <link rel = "stylesheet" type = "text/css" href = "style.css" />
+  <script>
+  var string_to_array = function (str) {
+     return str.trim().split(" ");
+  };
+  function printWords(list) {
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.font = "24px Times";
+    for (var word in list) {
+      ctx.fillText(list[word], 10, 50);
+    }
+  }
+  var i = 0;
+  </script>
+</head>
+
+<body>
+  <div id="contatiner">
+    <h1 class = "welcome">Welcome to Speed-Reader</h1>
+    <p class = "welcome">
+    a program designed to speed up your<br/>reading and increase comprehension.
+    </p>
+    <canvas id ="myCanvas" background-color="white"></canvas>
+    <div class="controls">
+      <button type="button" onclick="printWords(string_to_array("Hey there delilah."))">Start</button>
+      <button type="button" onclick="i = -1">Pause</button>
+    </div>
+  </div>
+</body>
+</html>
