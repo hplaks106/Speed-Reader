@@ -1,16 +1,19 @@
 # Please make sure you have modules pdf, pdfminer, and subsequent modules.
-import sys
+# import sys
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
-from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
+from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
 import io
 
+
 def filter(character):
-    if character.isalnum() != True and character != " " and character != "." and character != "?" and character != ":":
+    if (character.isalnum() is not True and character != " "
+            and character != "." and character != "?" and character != ":"):
         return True
     else:
         return False
+
 
 def pdfparser(data):
 
@@ -26,14 +29,16 @@ def pdfparser(data):
 
     for page in PDFPage.get_pages(fp):
         interpreter.process_page(page)
-        data =  retstr.getvalue()
+        data = retstr.getvalue()
 
     return data
+
+
 def readFile(filename):
     filename = "textbook.pdf"
     list = pdfparser(filename)
-    for x in range(0,len(list)):
+    for x in range(0, len(list)):
         if len(list) > x and filter(list[x]):
-            list = list[0 : x :] + ' ' + list[x+1 : :]
+            list = list[0: x:] + ' ' + list[x+1::]
     list = list.split()
     return list
