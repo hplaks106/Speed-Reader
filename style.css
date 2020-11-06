@@ -24,13 +24,15 @@ background: #FA0000;
   text-align: center;
   padding-top: 5px;
 }
+
 #contatiner
 {
   width: 80%;
+  border-style: solid;
   border-radius: 20px;
-  border-width: 2px;
+  border-size: 10px;
   border-color: #CCCCCC;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 5px 5px #888888;
   text-align: center;
   padding-left: 0;
   padding-right: 0;
