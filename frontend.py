@@ -46,10 +46,8 @@ class Application(tk.Frame):
                                  command=self.UploadAction)
         self.addFile.pack(side="bottom")
 
-
     def display_text(self):
-        """Temporary test case sentence output."""
-        list = fileConvert.readFile(filename)
+        list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
