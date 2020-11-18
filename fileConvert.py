@@ -1,5 +1,6 @@
 # Please make sure you have modules pdf, pdfminer, and subsequent modules.
 # import sys
+# PDF reader to parse file text
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
