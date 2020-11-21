@@ -4,6 +4,7 @@ from tkinter import StringVar
 from tkinter import filedialog
 import fileConvert as conv
 
+
 class Application(tk.Frame):
     def __init__(self, master=None):
         """Initialization creates GUI, widgets, and variables."""

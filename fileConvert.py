@@ -9,7 +9,8 @@ import io
 
 def filter(character):
     if (character.isalnum() is not True and character != " "
-            and character != "." and character != "?" and character != ":"):
+            and character != "." and character != "?"
+            and character != "'" and character != ":"):
         return True
     else:
         return False
@@ -20,7 +21,6 @@ def pdfparser(data):
     fp = open(data, 'rb')
     rsrcmgr = PDFResourceManager()
     retstr = io.StringIO()
-    codec = 'utf-8'
     laparams = LAParams()
     device = TextConverter(rsrcmgr, retstr, laparams=laparams)
     # Create a PDF interpreter object.
