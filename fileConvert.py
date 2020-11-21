@@ -49,4 +49,4 @@ def readFile(filename):
             list = list[0: x:] + ' ' + list[x+1::]
 
     list = list.split()
-    return
+    return list
