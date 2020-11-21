@@ -9,6 +9,7 @@ import io
 
 
 def filter(character):
+    """Checks whether the character is ' ', '.', or '?' for proper display."""
     if (character.isalnum() is not True and character != " "
             and character != "." and character != "?" and character != ":"):
         return True
@@ -17,7 +18,7 @@ def filter(character):
 
 
 def pdfparser(data):
-
+    """Decodes the file using utf-8 and returns the data to readFile."""
     fp = open(data, 'rb')
     rsrcmgr = PDFResourceManager()
     retstr = io.StringIO()
@@ -36,6 +37,7 @@ def pdfparser(data):
 
 
 def readFile(filename):
+    """Reads from filename and converts it into a list of strings."""
     filename = "textbook.pdf"
     list = pdfparser(filename)
     for x in range(0, len(list)):
