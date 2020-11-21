@@ -43,10 +43,7 @@ class Application(tk.Frame):
         self.addFile.pack(side="bottom")
 
     def display_text(self):
-<<<<<<< HEAD
-=======
         """Temporary test case sentence output."""
->>>>>>> 439d187776e651405857a99c1c1dc931d1268e15
         list = ["hi", "my", "name", "is", "pablo", "mf"]
         if self.count < len(list):
             if self.txt_speed > 0:
