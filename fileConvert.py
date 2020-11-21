@@ -9,7 +9,8 @@ import io
 
 def filter(character):
     if (character.isalnum() is not True and character != " "
-            and character != "." and character != "?" and character != ":"):
+            and character != "." and character != "?"
+            and character != "'" and character != ":"):
         return True
     else:
         return False
@@ -20,9 +21,8 @@ def pdfparser(data):
     fp = open(data, 'rb')
     rsrcmgr = PDFResourceManager()
     retstr = io.StringIO()
-    codec = 'utf-8'
     laparams = LAParams()
-    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
     # Create a PDF interpreter object.
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     # Process each page contained in the document.
@@ -35,10 +35,9 @@ def pdfparser(data):
 
 
 def readFile(filename):
-    filename = "textbook.pdf"
-    list = pdfparser(filename)
-    for x in range(0, len(list)):
-        if len(list) > x and filter(list[x]):
-            list = list[0: x:] + ' ' + list[x+1::]
-    list = list.split()
-    return list
+    text = pdfparser(filename)
+    for x in range(0, len(text)):
+        if len(text) > x and filter(text[x]):
+            text = text[0: x:] + ' ' + text[x+1::]
+    text = text.split()
+    return text
