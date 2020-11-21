@@ -9,7 +9,7 @@ class Application(tk.Frame):
         """Initialization creates GUI, widgets, and variables."""
         super().__init__(master)
         self.master = master
-        self.pack()
+        self.pack()  # organizes widgets in blocks for placement
         self.create_widgets()
         self.count = 0
         self.txt_speed = 0
@@ -23,6 +23,7 @@ class Application(tk.Frame):
 
         self.textLabel = tk.Label(self, textvariable=var)
         self.textLabel.pack(side="top")
+
         # Button to Restart Text
         self.restart = tk.Button(self, text="Restart Text", fg="black",
                                  command=self.restart_txt)
@@ -38,6 +39,7 @@ class Application(tk.Frame):
         # Button to add local file system
         self.addFile = tk.Button(self, text='Open', fg="black",
                                  command=self.UploadAction)
+        # Packs widgets to the bottom of the parent widget
         self.addFile.pack(side="bottom")
 
     def display_text(self):
@@ -51,15 +53,19 @@ class Application(tk.Frame):
 
     def pause_txt(self):
         """Pause button stops the text from continously displaying."""
+        # Set text speed to 0
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
             self.txt_speed = 200
+            # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
+        # Pause the text display
         self.txt_speed = 0
+        # Set to beginning of the file's text
         self.count = 0
         var.set("")
         self.textLabel.after(self.txt_speed, self.display_text)
@@ -71,7 +77,7 @@ class Application(tk.Frame):
         print('Selected:', filename)
 
 
-root = tk.Tk()
-root.geometry("500x500")
+root = tk.Tk()  # initialize Tkinter
+root.geometry("500x500")  # window size
 app = Application(master=root)
 app.mainloop()
