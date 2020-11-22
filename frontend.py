@@ -35,8 +35,7 @@ class Application(Frame):
         self.rowconfigure(4, pad=5, minsize=25)
         self.rowconfigure(5, pad=5, minsize=25)
 
-        self.textLabel = Label(self, width=700, bg="white", textvariable=var,
-                               borderwidth=0)
+        self.textLabel = Label(self, textvariable=var)
         self.textLabel.grid(row=0, column=0)
 
         self.restart = Button(self, text="Restart Text",
