@@ -1,7 +1,7 @@
 """Program converts PDF file to text and displays one word at a time."""
 from tkinter import StringVar
 from tkinter import filedialog
-from tkinter import Tk, HORIZONTAL
+from tkinter import HORIZONTAL
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
 import threading
 import time
@@ -96,7 +96,7 @@ class Application(Frame):
         threading.Thread(target=real_traitement).start()
 
 
-root = tk.Tk()
+root = Tk()
 root.geometry("500x500")
 app = Application(master=root)
 app.mainloop()
