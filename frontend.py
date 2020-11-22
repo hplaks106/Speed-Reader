@@ -1,6 +1,4 @@
 """Program converts PDF file to text and displays one word at a time."""
-import tkinter as tk
-from tkinter import *
 from tkinter import StringVar
 from tkinter import filedialog
 from tkinter import Tk, HORIZONTAL
@@ -9,7 +7,7 @@ import threading
 import time
 
 
-class Application(tk.Frame):
+class Application(Frame):
     def __init__(self, master=None):
         """Initialization creates GUI, widgets, and variables."""
         super().__init__(master)
@@ -25,7 +23,7 @@ class Application(tk.Frame):
         var = StringVar()
         self.master.title("Speed-Reader")
 
-        Style().configure("Tbutton", padding=(0,5,0,5), font="serif 10")
+        Style().configure("Tbutton", padding=(0, 5, 0, 5), font="serif 10")
         self.columnconfigure(0, pad=5, minsize=50)
 
         self.rowconfigure(0, pad=5, minsize=25)
@@ -86,6 +84,7 @@ class Application(tk.Frame):
         filename = filedialog.askopenfilename()
         self.file = open(filename, "r")
         print('Selected:', filename)
+
         def real_traitement():
             self.progress.grid(row=5, column=0)
             self.progress.start()
