@@ -5,8 +5,6 @@ from tkinter import Tk, HORIZONTAL, Toplevel
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
 from tkinter import Tk, HORIZONTAL
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
-import threading
-import time
 import fileConvert as conv
 
 
@@ -88,21 +86,8 @@ class Application(Frame):
         """Gets file from user's computer."""
         self.filename = filedialog.askopenfilename()
         print('Selected:', self.filename)
-<<<<<<< HEAD
         self.file = conv.readFile(self.filename, self.master)
-=======
-        self.file = conv.readFile(self.filename)
 
-        def real_traitement():
-            self.progress.grid(row=5, column=0)
-            self.progress.start()
-            time.sleep(5)
-            self.progress.stop()
-            self.progress.grid_forget()
-            self.addFile['state'] = 'normal'
-        self.addFile['state'] = 'disabled'
-        threading.Thread(target=real_traitement).start()
->>>>>>> 7ac73fcb16586c9936dfafa76ba24e98b730f27f
 
 
 root = Tk()
