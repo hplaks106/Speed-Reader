@@ -11,7 +11,8 @@ import io
 def filter(character):
     """Checks whether the character is ' ', '.', or '?' for proper display."""
     if (character.isalnum() is not True and character != " "
-            and character != "." and character != "?" and character != ":"):
+            and character != "." and character != "?"
+            and character != "'" and character != ":"):
         return True
     else:
         return False
@@ -26,7 +27,7 @@ def pdfparser(data):
     laparams = LAParams()  # Layout Parameters
 
     # obtains the format of the PDF: decoded text, fonts, layout, lines, etc.
-    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    device = TextConverter(rsrcmgr, retstr, laparams=laparams)
     # Create a PDF interpreter object
     interpreter = PDFPageInterpreter(rsrcmgr, device)
 
@@ -40,7 +41,6 @@ def pdfparser(data):
 
 def readFile(filename):
     """Reads from filename and converts it into a list of strings."""
-    filename = "textbook.pdf"
     list = pdfparser(filename)  # get PDF formatted as text
 
     # fill in spaces to the PDF text
