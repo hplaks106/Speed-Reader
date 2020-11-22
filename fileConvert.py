@@ -23,7 +23,6 @@ def pdfparser(data):
     fp = open(data, 'rb')
     rsrcmgr = PDFResourceManager()  # stores fonts, images, etc.
     retstr = io.StringIO()  # creates string buffer
-    codec = 'utf-8'  # Unicode text format
     laparams = LAParams()  # Layout Parameters
 
     # obtains the format of the PDF: decoded text, fonts, layout, lines, etc.
