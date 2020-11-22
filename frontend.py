@@ -1,10 +1,9 @@
 """Program converts PDF file to text and displays one word at a time."""
 from tkinter import StringVar
 from tkinter import filedialog
-from tkinter import Tk, HORIZONTAL
+from tkinter import Tk, HORIZONTAL, Toplevel
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
-import threading
-import time
+import fileConvert as conv
 
 
 class Application(Frame):
@@ -15,7 +14,8 @@ class Application(Frame):
         self.initUI()
         self.count = 0
         self.txt_speed = 0
-        self.file = None
+        self.file = list()
+        self.filename = None
 
     def initUI(self):
         """Initialize the User Interface"""
@@ -31,7 +31,6 @@ class Application(Frame):
         self.rowconfigure(2, pad=5, minsize=25)
         self.rowconfigure(3, pad=5, minsize=25)
         self.rowconfigure(4, pad=5, minsize=25)
-        self.rowconfigure(5, pad=5, minsize=25)
 
         self.textLabel = Label(self, textvariable=var)
         self.textLabel.grid(row=0, column=0)
@@ -49,15 +48,13 @@ class Application(Frame):
         self.addFile = Button(self, text="OPEN", command=self.UploadAction)
         self.addFile.grid(row=4, column=0)
 
-        self.progress = Progressbar(self, orient=HORIZONTAL, length=250,
-                                    mode='determinate')
         self.textLabel.after(1000, self.display_text)
 
         self.pack()
 
     def display_text(self):
         """Temporary test case sentence output."""
-        list = ["hi", "my", "name", "is", "pablo", "mf"]
+        list = self.file
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
@@ -66,34 +63,28 @@ class Application(Frame):
 
     def pause_txt(self):
         """Pause button stops the text from continously displaying."""
+        # Set text speed to 0
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
             self.txt_speed = 200
+            # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
+        # Pause the text display
         self.txt_speed = 0
+        # Set to beginning of the file's text
         self.count = 0
         var.set("")
         self.textLabel.after(self.txt_speed, self.display_text)
 
     def UploadAction(self):
         """Gets file from user's computer."""
-        filename = filedialog.askopenfilename()
-        self.file = open(filename, "r")
-        print('Selected:', filename)
-
-        def real_traitement():
-            self.progress.grid(row=5, column=0)
-            self.progress.start()
-            time.sleep(5)
-            self.progress.stop()
-            self.progress.grid_forget()
-            self.addFile['state'] = 'normal'
-        self.addFile['state'] = 'disabled'
-        threading.Thread(target=real_traitement).start()
+        self.filename = filedialog.askopenfilename()
+        print('Selected:', self.filename)
+        self.file = conv.readFile(self.filename, self.master)
 
 
 root = Tk()
