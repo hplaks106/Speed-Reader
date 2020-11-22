@@ -23,7 +23,7 @@ class Application(tk.Frame):
         global var
         var = StringVar()
 
-        self.textLabel = tk.Label(self, textvariable=var)
+        self.textLabel = tk.Label(self, width=500, bg="white", textvariable=var, borderwidth=0)
         self.textLabel.pack(side="top")
 
         # Button to Restart Text
@@ -59,7 +59,7 @@ class Application(tk.Frame):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
-            self.txt_speed = 200
+            self.txt_speed = 500
             # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
 
