@@ -35,7 +35,8 @@ class Application(Frame):
         self.rowconfigure(4, pad=5, minsize=25)
         self.rowconfigure(5, pad=5, minsize=25)
 
-        self.textLabel = Label(self, textvariable=var)
+        self.textLabel = Label(self, width=700, bg="white", textvariable=var,
+                               borderwidth=0)
         self.textLabel.grid(row=0, column=0)
 
         self.restart = Button(self, text="Restart Text",
@@ -72,7 +73,7 @@ class Application(Frame):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
-            self.txt_speed = 200
+            self.txt_speed = 500
             # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
 
