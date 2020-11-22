@@ -15,7 +15,8 @@ class Application(Frame):
         self.master = master
         self.initUI()
         self.count = 0
-        self.txt_speed = 0
+        self.txt_speed = 0  # starts by not displaying until resumed
+        self.saved_speed = 500  # default speed
         self.file = list()
         self.filename = None
 
@@ -35,22 +36,36 @@ class Application(Frame):
         self.rowconfigure(4, pad=5, minsize=25)
         self.rowconfigure(5, pad=5, minsize=25)
 
-        self.textLabel = Label(self, width=700, bg="white", textvariable=var,
-                               borderwidth=0)
-        self.textLabel.grid(row=0, column=0)
+        self.textLabel = Label(self, textvariable=var)
+        self.textLabel.grid(row=0, column=2)
 
         self.restart = Button(self, text="Restart Text",
                               command=self.restart_txt)
-        self.restart.grid(row=1, column=0)
+        self.restart.grid(row=1, column=2)
 
         self.pause = Button(self, text="PLAY/PAUSE", command=self.pause_txt)
-        self.pause.grid(row=2, column=0)
+        self.pause.grid(row=2, column=2)
+
+        self.set_speed = Button(self, text="60 WPM", command=lambda: self.change_speed(750))
+        self.set_speed.grid(row=3, column=0)
+
+        self.set_speed = Button(self, text="90 WPM", command=lambda: self.change_speed(625))
+        self.set_speed.grid(row=3, column=1)
+
+        self.set_speed = Button(self, text="120 WPM", command=lambda: self.change_speed(500))
+        self.set_speed.grid(row=3, column=2)
+
+        self.set_speed = Button(self, text="150 WPM", command=lambda: self.change_speed(375))
+        self.set_speed.grid(row=3, column=3)
+
+        self.set_speed = Button(self, text="200 WPM", command=lambda: self.change_speed(250))
+        self.set_speed.grid(row=3, column=4)
 
         self.quit = Button(self, text="QUIT", command=self.master.destroy)
-        self.quit.grid(row=3, column=0)
+        self.quit.grid(row=4, column=2)
 
         self.addFile = Button(self, text="OPEN", command=self.UploadAction)
-        self.addFile.grid(row=4, column=0)
+        self.addFile.grid(row=5, column=2)
 
         self.progress = Progressbar(self, orient=HORIZONTAL, length=250,
                                     mode='determinate')
@@ -73,9 +88,15 @@ class Application(Frame):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
-            self.txt_speed = 500
+            # set the text speed to the last used speed
+            self.txt_speed = self.saved_speed
             # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
+
+    def change_speed(self, speed):
+        """Changes the text display speed in 60 WPM increments"""
+        self.saved_speed = speed
+        self.txt_speed = self.saved_speed
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
@@ -95,7 +116,7 @@ class Application(Frame):
         def real_traitement():
             self.progress.grid(row=5, column=0)
             self.progress.start()
-            time.sleep(5)
+            time.sleep(1)
             self.progress.stop()
             self.progress.grid_forget()
             self.addFile['state'] = 'normal'
