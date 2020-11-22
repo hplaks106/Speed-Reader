@@ -5,6 +5,7 @@ from tkinter import Tk, HORIZONTAL
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
 import threading
 import time
+import fileConvert as conv
 
 
 class Application(Frame):
@@ -15,7 +16,8 @@ class Application(Frame):
         self.initUI()
         self.count = 0
         self.txt_speed = 0
-        self.file = None
+        self.file = list()
+        self.filename = None
 
     def initUI(self):
         """Initialize the User Interface"""
@@ -57,7 +59,7 @@ class Application(Frame):
 
     def display_text(self):
         """Temporary test case sentence output."""
-        list = ["hi", "my", "name", "is", "pablo", "mf"]
+        list = self.file
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
@@ -66,24 +68,28 @@ class Application(Frame):
 
     def pause_txt(self):
         """Pause button stops the text from continously displaying."""
+        # Set text speed to 0
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
             self.txt_speed = 200
+            # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
+        # Pause the text display
         self.txt_speed = 0
+        # Set to beginning of the file's text
         self.count = 0
         var.set("")
         self.textLabel.after(self.txt_speed, self.display_text)
 
     def UploadAction(self):
         """Gets file from user's computer."""
-        filename = filedialog.askopenfilename()
-        self.file = open(filename, "r")
-        print('Selected:', filename)
+        self.filename = filedialog.askopenfilename()
+        print('Selected:', self.filename)
+        self.file = conv.readFile(self.filename)
 
         def real_traitement():
             self.progress.grid(row=5, column=0)
