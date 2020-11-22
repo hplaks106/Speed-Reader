@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import StringVar
 from tkinter import filedialog
+import fileConvert as conv
 
 
 class Application(tk.Frame):
@@ -13,7 +14,8 @@ class Application(tk.Frame):
         self.create_widgets()
         self.count = 0
         self.txt_speed = 0
-        self.file = None
+        self.file = list()
+        self.filename = None
         # self.textLabel.after(1000, self.display_text)
 
     def create_widgets(self):
@@ -44,7 +46,7 @@ class Application(tk.Frame):
 
     def display_text(self):
         """Temporary test case sentence output."""
-        list = ["hi", "my", "name", "is", "pablo", "mf"]
+        list = self.file
         if self.count < len(list):
             if self.txt_speed > 0:
                 var.set(list[self.count])
@@ -72,9 +74,9 @@ class Application(tk.Frame):
 
     def UploadAction(self):
         """Gets file from user's computer."""
-        filename = filedialog.askopenfilename()
-        self.file = open(filename, "r")
-        print('Selected:', filename)
+        self.filename = filedialog.askopenfilename()
+        print('Selected:', self.filename)
+        self.file = conv.readFile(self.filename)
 
 
 root = tk.Tk()  # initialize Tkinter
