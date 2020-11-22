@@ -1,6 +1,10 @@
 """Program converts PDF file to text and displays one word at a time."""
 from tkinter import StringVar
 from tkinter import filedialog
+from tkinter import Tk, HORIZONTAL
+from tkinter.ttk import Frame, Button, Label, Progressbar, Style
+import threading
+import time
 import fileConvert as conv
 
 
@@ -32,8 +36,7 @@ class Application(Frame):
         self.rowconfigure(4, pad=5, minsize=25)
         self.rowconfigure(5, pad=5, minsize=25)
 
-        self.textLabel = Label(self, width=700, bg="white", textvariable=var,
-                               borderwidth=0)
+        self.textLabel = Label(self, textvariable=var)
         self.textLabel.grid(row=0, column=0)
 
         self.restart = Button(self, text="Restart Text",
