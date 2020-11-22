@@ -46,19 +46,24 @@ class Application(Frame):
         self.pause = Button(self, text="PLAY/PAUSE", command=self.pause_txt)
         self.pause.grid(row=2, column=2)
 
-        self.set_speed = Button(self, text="60 WPM", command=lambda: self.change_speed(750))
+        self.set_speed = Button(self, text="60 WPM",
+                                command=lambda: self.change_speed(750))
         self.set_speed.grid(row=3, column=0)
 
-        self.set_speed = Button(self, text="90 WPM", command=lambda: self.change_speed(625))
+        self.set_speed = Button(self, text="90 WPM",
+                                command=lambda: self.change_speed(625))
         self.set_speed.grid(row=3, column=1)
 
-        self.set_speed = Button(self, text="120 WPM", command=lambda: self.change_speed(500))
+        self.set_speed = Button(self, text="120 WPM",
+                                command=lambda: self.change_speed(500))
         self.set_speed.grid(row=3, column=2)
 
-        self.set_speed = Button(self, text="150 WPM", command=lambda: self.change_speed(375))
+        self.set_speed = Button(self, text="150 WPM",
+                                command=lambda: self.change_speed(375))
         self.set_speed.grid(row=3, column=3)
 
-        self.set_speed = Button(self, text="200 WPM", command=lambda: self.change_speed(250))
+        self.set_speed = Button(self, text="200 WPM",
+                                command=lambda: self.change_speed(250))
         self.set_speed.grid(row=3, column=4)
 
         self.quit = Button(self, text="QUIT", command=self.master.destroy)
