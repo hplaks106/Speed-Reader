@@ -1,15 +1,12 @@
 """Program converts PDF file to text and displays one word at a time."""
 from tkinter import StringVar
 from tkinter import filedialog
-<<<<<<< HEAD
 from tkinter import Tk, HORIZONTAL, Toplevel
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
-=======
 from tkinter import Tk, HORIZONTAL
 from tkinter.ttk import Frame, Button, Label, Progressbar, Style
 import threading
 import time
->>>>>>> 7ac73fcb16586c9936dfafa76ba24e98b730f27f
 import fileConvert as conv
 
 
