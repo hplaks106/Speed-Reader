@@ -85,7 +85,9 @@ class Application(Frame):
         """Changes the text display speed in 60 WPM increments"""
         speed = int((60 / speed) * 1000)  # convert WPM to text_speed
         self.saved_speed = speed
-        self.txt_speed = self.saved_speed
+        # if the text isn't paused
+        if self.txt_speed != 0:
+            self.txt_speed = self.saved_speed
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
