@@ -5,6 +5,9 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
+from tkinter.ttk import Progressbar
+from tkinter import BOTTOM
+import time
 import io
 
 
@@ -38,14 +41,27 @@ def pdfparser(data):
     return data
 
 
-def readFile(filename):
+def readFile(filename, master):
     """Reads from filename and converts it into a list of strings."""
+    # progress bar to show progress to user
+    progress = Progressbar(master, orient='horizontal', length=400,
+                           mode='determinate')
+    progress.pack(side=BOTTOM, padx=5, pady=5)  # Placment and padding
+    progress['value'] = 25  # update progress bar value
+    master.update()  # update the window
     list = pdfparser(filename)  # get PDF formatted as text
-
+    progress['value'] = 50  # update the value after 50% of work completed
+    master.update()  # update the window
     # fill in spaces to the PDF text
     for x in range(0, len(list)):
         if len(list) > x and filter(list[x]):
             list = list[0: x:] + ' ' + list[x+1::]
-
+    progress['value'] = 75  # update value to 75% completion
+    master.update()  # update the window
     list = list.split()
+    progress['value'] = 100  # update to 100% completion
+    master.update()  # update window
+    time.sleep(5)  # sleep so user can see completion rate of 100%
+    progress.destroy()  # destroy progress bar
+    master.update()  # update the window
     return list

@@ -1,10 +1,8 @@
 """Program converts PDF file to text and displays one word at a time."""
-from tkinter import StringVar
+from tkinter import StringVar, DoubleVar
 from tkinter import filedialog
-from tkinter import Tk, HORIZONTAL
-from tkinter.ttk import Frame, Button, Label, Progressbar, Style
-import threading
-import time
+from tkinter import Tk, Scale
+from tkinter.ttk import Frame, Button, Label, Style
 import fileConvert as conv
 
 
@@ -15,45 +13,50 @@ class Application(Frame):
         self.master = master
         self.initUI()
         self.count = 0
-        self.txt_speed = 0
+        self.txt_speed = 0  # starts by not displaying until resumed
+        self.saved_speed = 300  # default speed
         self.file = list()
         self.filename = None
-        # self.textLabel.after(1000, self.display_text)
 
     def initUI(self):
         """Initialize the User Interface"""
         global var
+        columns = [0, 1, 2, 3, 4]  # columns grid padding
+        rows = [0, 1, 2, 3, 4, 5]  # rows grid padding
         var = StringVar()
         self.master.title("Speed-Reader")
 
         Style().configure("Tbutton", padding=(0, 5, 0, 5), font="serif 10")
-        self.columnconfigure(0, pad=5, minsize=50)
-
-        self.rowconfigure(0, pad=5, minsize=25)
-        self.rowconfigure(1, pad=5, minsize=25)
-        self.rowconfigure(2, pad=5, minsize=25)
-        self.rowconfigure(3, pad=5, minsize=25)
-        self.rowconfigure(4, pad=5, minsize=25)
-        self.rowconfigure(5, pad=5, minsize=25)
+        self.columnconfigure(columns, pad=5, minsize=25)
+        self.rowconfigure(rows, pad=5, minsize=25)
 
         self.textLabel = Label(self, textvariable=var)
-        self.textLabel.grid(row=0, column=0)
+
+        self.textLabel.grid(row=0, column=2)
 
         self.restart = Button(self, text="Restart Text",
                               command=self.restart_txt)
-        self.restart.grid(row=1, column=0)
+        self.restart.grid(row=1, column=2)
 
         self.pause = Button(self, text="PLAY/PAUSE", command=self.pause_txt)
-        self.pause.grid(row=2, column=0)
+        self.pause.grid(row=2, column=2)
+
+        init_slide_val = DoubleVar()  # create initial slider value variable
+        self.speed_slider = Scale(self, cursor='sb_h_double_arrow', from_=100,
+                                  to=300, length=200, tickinterval=50,
+                                  resolution=50, orient='horizontal',
+                                  variable=init_slide_val, command=lambda x:
+                                  self.change_speed(self.speed_slider.get()))
+
+        init_slide_val.set(200)  # initialize the slider to 200 WPM
+        self.speed_slider.grid(row=3, column=2)
 
         self.quit = Button(self, text="QUIT", command=self.master.destroy)
-        self.quit.grid(row=3, column=0)
+        self.quit.grid(row=4, column=2)
 
         self.addFile = Button(self, text="OPEN", command=self.UploadAction)
-        self.addFile.grid(row=4, column=0)
+        self.addFile.grid(row=5, column=2)
 
-        self.progress = Progressbar(self, orient=HORIZONTAL, length=250,
-                                    mode='determinate')
         self.textLabel.after(1000, self.display_text)
 
         self.pack()
@@ -73,9 +76,16 @@ class Application(Frame):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
-            self.txt_speed = 500
+            # set the text speed to the last used speed
+            self.txt_speed = self.saved_speed
             # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
+
+    def change_speed(self, speed):
+        """Changes the text display speed in 60 WPM increments"""
+        speed = int((60 / speed) * 1000)  # convert WPM to text_speed
+        self.saved_speed = speed
+        self.txt_speed = self.saved_speed
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
@@ -90,20 +100,10 @@ class Application(Frame):
         """Gets file from user's computer."""
         self.filename = filedialog.askopenfilename()
         print('Selected:', self.filename)
-        self.file = conv.readFile(self.filename)
-
-        def real_traitement():
-            self.progress.grid(row=5, column=0)
-            self.progress.start()
-            time.sleep(5)
-            self.progress.stop()
-            self.progress.grid_forget()
-            self.addFile['state'] = 'normal'
-        self.addFile['state'] = 'disabled'
-        threading.Thread(target=real_traitement).start()
+        self.file = conv.readFile(self.filename, self.master)
 
 
 root = Tk()
-root.geometry("500x500")
+root.geometry()
 app = Application(master=root)
 app.mainloop()
