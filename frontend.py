@@ -87,7 +87,6 @@ class Application(Frame):
         self.file = conv.readFile(self.filename, self.master)
 
 
-
 root = Tk()
 root.geometry("500x500")
 app = Application(master=root)
