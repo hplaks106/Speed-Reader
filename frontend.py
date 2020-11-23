@@ -30,8 +30,8 @@ class Application(Frame):
         self.columnconfigure(columns, pad=5, minsize=25)
         self.rowconfigure(rows, pad=5, minsize=25)
 
-        self.textLabel = Label(self, textvariable=var)
-
+        self.textLabel = Label(self, width = 25, textvariable=var)
+        self.textLabel.configure(anchor="center")
         self.textLabel.grid(row=0, column=2)
 
         self.restart = Button(self, text="Restart Text",
