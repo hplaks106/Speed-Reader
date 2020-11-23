@@ -23,18 +23,14 @@ class Application(Frame):
     def initUI(self):
         """Initialize the User Interface"""
         global var
+        columns = [0, 1, 2, 3, 4]  # columns grid padding
+        rows = [0, 1, 2, 3, 4, 5]  # rows grid padding
         var = StringVar()
         self.master.title("Speed-Reader")
 
         Style().configure("Tbutton", padding=(0, 5, 0, 5), font="serif 10")
-        self.columnconfigure(0, pad=5, minsize=50)
-
-        self.rowconfigure(0, pad=5, minsize=25)
-        self.rowconfigure(1, pad=5, minsize=25)
-        self.rowconfigure(2, pad=5, minsize=25)
-        self.rowconfigure(3, pad=5, minsize=25)
-        self.rowconfigure(4, pad=5, minsize=25)
-        self.rowconfigure(5, pad=5, minsize=25)
+        self.columnconfigure(columns, pad=5, minsize=25)
+        self.rowconfigure(rows, pad=5, minsize=25)
 
         self.textLabel = Label(self, textvariable=var)
         self.textLabel.grid(row=0, column=2)
@@ -62,7 +58,7 @@ class Application(Frame):
                                 command=lambda: self.change_speed(375))
         self.set_speed.grid(row=3, column=3)
 
-        self.set_speed = Button(self, text="200 WPM",
+        self.set_speed = Button(self, text="180 WPM",
                                 command=lambda: self.change_speed(250))
         self.set_speed.grid(row=3, column=4)
 
@@ -130,6 +126,6 @@ class Application(Frame):
 
 
 root = Tk()
-root.geometry("500x500")
+root.geometry()
 app = Application(master=root)
 app.mainloop()
