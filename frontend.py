@@ -1,48 +1,65 @@
 """Program converts PDF file to text and displays one word at a time."""
-import tkinter as tk
-from tkinter import StringVar
+from tkinter import StringVar, DoubleVar
 from tkinter import filedialog
+from tkinter import Tk, Scale
+from tkinter.ttk import Frame, Button, Label, Style
 import fileConvert as conv
 
 
-class Application(tk.Frame):
+class Application(Frame):
     def __init__(self, master=None):
         """Initialization creates GUI, widgets, and variables."""
         super().__init__(master)
         self.master = master
-        self.pack()  # organizes widgets in blocks for placement
-        self.create_widgets()
+        self.initUI()
         self.count = 0
-        self.txt_speed = 0
+        self.txt_speed = 0  # starts by not displaying until resumed
+        self.saved_speed = 300  # default speed
         self.file = list()
         self.filename = None
-        # self.textLabel.after(1000, self.display_text)
 
-    def create_widgets(self):
-        """Creates tkinter widgets for the GUI."""
+    def initUI(self):
+        """Initialize the User Interface"""
         global var
+        columns = [0, 1, 2, 3, 4]  # columns grid padding
+        rows = [0, 1, 2, 3, 4, 5]  # rows grid padding
         var = StringVar()
+        self.master.title("Speed-Reader")
 
-        self.textLabel = tk.Label(self, textvariable=var)
-        self.textLabel.pack(side="top")
+        Style().configure("Tbutton", padding=(0, 5, 0, 5), font="serif 10")
+        self.columnconfigure(columns, pad=5, minsize=25)
+        self.rowconfigure(rows, pad=5, minsize=25)
 
-        # Button to Restart Text
-        self.restart = tk.Button(self, text="Restart Text", fg="black",
-                                 command=self.restart_txt)
-        self.restart.pack(side="bottom")
-        # Button to Play/Pause
-        self.pause = tk.Button(self, text="PLAY/PAUSE", fg="black",
-                               command=self.pause_txt)
-        self.pause.pack(side="bottom")
-        # Button to terminate program
-        self.quit = tk.Button(self, text="QUIT", fg="black",
-                              command=self.master.destroy)
-        self.quit.pack(side="bottom")
-        # Button to add local file system
-        self.addFile = tk.Button(self, text='Open', fg="black",
-                                 command=self.UploadAction)
-        # Packs widgets to the bottom of the parent widget
-        self.addFile.pack(side="bottom")
+        self.textLabel = Label(self, textvariable=var)
+
+        self.textLabel.grid(row=0, column=2)
+
+        self.restart = Button(self, text="Restart Text",
+                              command=self.restart_txt)
+        self.restart.grid(row=1, column=2)
+
+        self.pause = Button(self, text="PLAY/PAUSE", command=self.pause_txt)
+        self.pause.grid(row=2, column=2)
+
+        init_slide_val = DoubleVar()  # create initial slider value variable
+        self.speed_slider = Scale(self, cursor='sb_h_double_arrow', from_=100,
+                                  to=300, length=200, tickinterval=50,
+                                  resolution=50, orient='horizontal',
+                                  variable=init_slide_val, command=lambda x:
+                                  self.change_speed(self.speed_slider.get()))
+
+        init_slide_val.set(200)  # initialize the slider to 200 WPM
+        self.speed_slider.grid(row=3, column=2)
+
+        self.quit = Button(self, text="QUIT", command=self.master.destroy)
+        self.quit.grid(row=4, column=2)
+
+        self.addFile = Button(self, text="OPEN", command=self.UploadAction)
+        self.addFile.grid(row=5, column=2)
+
+        self.textLabel.after(1000, self.display_text)
+
+        self.pack()
 
     def display_text(self):
         """Temporary test case sentence output."""
@@ -59,9 +76,16 @@ class Application(tk.Frame):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
-            self.txt_speed = 200
+            # set the text speed to the last used speed
+            self.txt_speed = self.saved_speed
             # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
+
+    def change_speed(self, speed):
+        """Changes the text display speed in 60 WPM increments"""
+        speed = int((60 / speed) * 1000)  # convert WPM to text_speed
+        self.saved_speed = speed
+        self.txt_speed = self.saved_speed
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
@@ -76,10 +100,10 @@ class Application(tk.Frame):
         """Gets file from user's computer."""
         self.filename = filedialog.askopenfilename()
         print('Selected:', self.filename)
-        self.file = conv.readFile(self.filename)
+        self.file = conv.readFile(self.filename, self.master)
 
 
-root = tk.Tk()  # initialize Tkinter
-root.geometry("500x500")  # window size
+root = Tk()
+root.geometry()
 app = Application(master=root)
 app.mainloop()
