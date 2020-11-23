@@ -1,10 +1,8 @@
 """Program converts PDF file to text and displays one word at a time."""
 from tkinter import StringVar
 from tkinter import filedialog
-from tkinter import Tk, HORIZONTAL
-from tkinter.ttk import Frame, Button, Label, Progressbar, Style
-import threading
-import time
+from tkinter import Tk
+from tkinter.ttk import Frame, Button, Label, Style
 import fileConvert as conv
 
 
@@ -69,8 +67,6 @@ class Application(Frame):
         self.addFile = Button(self, text="OPEN", command=self.UploadAction)
         self.addFile.grid(row=5, column=2)
 
-        self.progress = Progressbar(self, orient=HORIZONTAL, length=250,
-                                    mode='determinate')
         self.textLabel.after(1000, self.display_text)
 
         self.pack()
@@ -113,17 +109,7 @@ class Application(Frame):
         """Gets file from user's computer."""
         self.filename = filedialog.askopenfilename()
         print('Selected:', self.filename)
-        self.file = conv.readFile(self.filename)
-
-        def real_traitement():
-            self.progress.grid(row=5, column=0)
-            self.progress.start()
-            time.sleep(1)
-            self.progress.stop()
-            self.progress.grid_forget()
-            self.addFile['state'] = 'normal'
-        self.addFile['state'] = 'disabled'
-        threading.Thread(target=real_traitement).start()
+        self.file = conv.readFile(self.filename, self.master)
 
 
 root = Tk()
