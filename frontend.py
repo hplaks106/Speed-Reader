@@ -1,7 +1,7 @@
 """Program converts PDF file to text and displays one word at a time."""
-from tkinter import StringVar
+from tkinter import StringVar, DoubleVar
 from tkinter import filedialog
-from tkinter import Tk
+from tkinter import Tk, Scale
 from tkinter.ttk import Frame, Button, Label, Style
 import fileConvert as conv
 
@@ -14,7 +14,7 @@ class Application(Frame):
         self.initUI()
         self.count = 0
         self.txt_speed = 0  # starts by not displaying until resumed
-        self.saved_speed = 500  # default speed
+        self.saved_speed = 300  # default speed
         self.file = list()
         self.filename = None
 
@@ -41,25 +41,15 @@ class Application(Frame):
         self.pause = Button(self, text="PLAY/PAUSE", command=self.pause_txt)
         self.pause.grid(row=2, column=2)
 
-        self.set_speed = Button(self, text="60 WPM",
-                                command=lambda: self.change_speed(750))
-        self.set_speed.grid(row=3, column=0)
+        init_slide_val = DoubleVar()  # create initial slider value variable
+        self.speed_slider = Scale(self, cursor='sb_h_double_arrow', from_=100,
+                                  to=300, length=200, tickinterval=50,
+                                  resolution=50, orient='horizontal',
+                                  variable=init_slide_val, command=lambda x:
+                                  self.change_speed(self.speed_slider.get()))
 
-        self.set_speed = Button(self, text="90 WPM",
-                                command=lambda: self.change_speed(625))
-        self.set_speed.grid(row=3, column=1)
-
-        self.set_speed = Button(self, text="120 WPM",
-                                command=lambda: self.change_speed(500))
-        self.set_speed.grid(row=3, column=2)
-
-        self.set_speed = Button(self, text="150 WPM",
-                                command=lambda: self.change_speed(375))
-        self.set_speed.grid(row=3, column=3)
-
-        self.set_speed = Button(self, text="180 WPM",
-                                command=lambda: self.change_speed(250))
-        self.set_speed.grid(row=3, column=4)
+        init_slide_val.set(200)  # initialize the slider to 200 WPM
+        self.speed_slider.grid(row=3, column=2)
 
         self.quit = Button(self, text="QUIT", command=self.master.destroy)
         self.quit.grid(row=4, column=2)
@@ -93,6 +83,7 @@ class Application(Frame):
 
     def change_speed(self, speed):
         """Changes the text display speed in 60 WPM increments"""
+        speed = int((60 / speed) * 1000)  # convert WPM to text_speed
         self.saved_speed = speed
         self.txt_speed = self.saved_speed
 
