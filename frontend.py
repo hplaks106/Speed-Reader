@@ -17,7 +17,6 @@ class Application(Frame):
         self.saved_speed = 300  # default speed
         self.file = list()
         self.filename = None
-        # print(self.txt_speed, self.saved_speed)
 
     def initUI(self):
         """Initialize the User Interface"""
