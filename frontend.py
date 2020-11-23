@@ -15,13 +15,16 @@ class Application(Frame):
         self.master = master
         self.initUI()
         self.count = 0
-        self.txt_speed = 0
+        self.txt_speed = 0  # starts by not displaying until resumed
+        self.saved_speed = 300  # default speed
         self.file = list()
         self.filename = None
 
     def initUI(self):
         """Initialize the User Interface"""
         global var
+        columns = [0, 1, 2, 3, 4]  # columns grid padding
+        rows = [0, 1, 2, 3, 4, 5]  # rows grid padding
         var = StringVar()
         self.master.title("Speed-Reader")
 
@@ -72,9 +75,16 @@ class Application(Frame):
         if self.txt_speed > 0:
             self.txt_speed = 0
         else:
-            self.txt_speed = 500
+            # set the text speed to the last used speed
+            self.txt_speed = self.saved_speed
             # Resume the text display when resumed
             self.textLabel.after(self.txt_speed, self.display_text)
+
+    def change_speed(self, speed):
+        """Changes the text display speed in 60 WPM increments"""
+        speed = int((60 / speed) * 1000)  # convert WPM to text_speed
+        self.saved_speed = speed
+        self.txt_speed = self.saved_speed
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
@@ -89,7 +99,7 @@ class Application(Frame):
         """Gets file from user's computer."""
         self.filename = filedialog.askopenfilename()
         print('Selected:', self.filename)
-        self.file = conv.readFile(self.filename)
+        self.file = conv.readFile(self.filename, self.master)
 
         def real_traitement():
             self.progress.grid(row=5, column=0)
@@ -103,6 +113,6 @@ class Application(Frame):
 
 
 root = Tk()
-root.geometry("500x500")
+root.geometry()
 app = Application(master=root)
 app.mainloop()
