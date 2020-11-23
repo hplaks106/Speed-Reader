@@ -46,7 +46,7 @@ def readFile(filename, master):
     # progress bar to show progress to user
     progress = Progressbar(master, orient='horizontal', length=400,
                            mode='determinate')
-    progress.pack(side = BOTTOM, padx=5, pady=5)  # Placment and padding
+    progress.pack(side=BOTTOM, padx=5, pady=5)  # Placment and padding
     progress['value'] = 25  # update progress bar value
     master.update()  # update the window
     list = pdfparser(filename)  # get PDF formatted as text
