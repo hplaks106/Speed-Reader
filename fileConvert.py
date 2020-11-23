@@ -6,7 +6,7 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
 from tkinter.ttk import Progressbar
-from tkinter import BOTTOM, END, Text
+from tkinter import BOTTOM
 import time
 import io
 
