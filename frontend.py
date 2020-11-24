@@ -30,8 +30,8 @@ class Application(Frame):
         self.columnconfigure(columns, pad=5, minsize=25)
         self.rowconfigure(rows, pad=5, minsize=25)
 
-        self.textLabel = Label(self, textvariable=var)
-
+        self.textLabel = Label(self, width=25, textvariable=var)
+        self.textLabel.configure(anchor="center")
         self.textLabel.grid(row=0, column=2)
 
         self.restart = Button(self, text="Restart Text",
@@ -85,7 +85,9 @@ class Application(Frame):
         """Changes the text display speed in 60 WPM increments"""
         speed = int((60 / speed) * 1000)  # convert WPM to text_speed
         self.saved_speed = speed
-        self.txt_speed = self.saved_speed
+        # if the text isn't paused
+        if self.txt_speed != 0:
+            self.txt_speed = self.saved_speed
 
     def restart_txt(self):
         """Resets the displayed text to the beginning of the file."""
