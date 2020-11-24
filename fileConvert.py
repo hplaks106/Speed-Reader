@@ -7,6 +7,7 @@ from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
 from tkinter.ttk import Progressbar
 from tkinter import BOTTOM
+import docx
 import time
 import io
 
@@ -50,13 +51,24 @@ def convertTxt(name_of_file):
     return text
 
 
+def convertDocx(filename):
+    """Reutrns string extracted from a docx file"""
+    doc = docx.Document(filename)
+    extracted = []
+    for para in doc.paragraphs:
+        extracted.append(para.text)
+    return '\n'.join(extracted)
+
+
 def gettext(name_of_file):
     "returns a string of text from the appropriate file type inputed"
     return_string = ""
     if name_of_file.find(".txt") != -1:
         return_string = convertTxt(name_of_file)
-    elif name_of_file.find(".pdf"):
+    elif name_of_file.find(".pdf") != -1:
         return_string = pdfparser(name_of_file)
+    elif name_of_file.find(".docx") != -1:
+        return_string = convertDocx(name_of_file)
     return return_string
 
 
