@@ -7,6 +7,7 @@ from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
 from tkinter.ttk import Progressbar
 from tkinter import BOTTOM
+import docx
 import time
 import io
 
@@ -41,6 +42,36 @@ def pdfparser(data):
     return data
 
 
+def convertTxt(name_of_file):
+    """Converts the file to txt and returns as a string"""
+    opened = open(name_of_file, "rb")
+    text = ""
+    for line in opened:
+        text = text + " " + line.decode("utf-8").rstrip()
+    return text
+
+
+def convertDocx(filename):
+    """Reutrns string extracted from a docx file"""
+    doc = docx.Document(filename)
+    extracted = []
+    for para in doc.paragraphs:
+        extracted.append(para.text)
+    return '\n'.join(extracted)
+
+
+def gettext(name_of_file):
+    "returns a string of text from the appropriate file type inputed"
+    return_string = ""
+    if name_of_file.find(".txt") != -1:
+        return_string = convertTxt(name_of_file)
+    elif name_of_file.find(".pdf") != -1:
+        return_string = pdfparser(name_of_file)
+    elif name_of_file.find(".docx") != -1:
+        return_string = convertDocx(name_of_file)
+    return return_string
+
+
 def readFile(filename, master):
     """Reads from filename and converts it into a list of strings."""
     # progress bar to show progress to user
@@ -49,7 +80,7 @@ def readFile(filename, master):
     progress.pack(side=BOTTOM, padx=5, pady=5)  # Placment and padding
     progress['value'] = 25  # update progress bar value
     master.update()  # update the window
-    list = pdfparser(filename)  # get PDF formatted as text
+    list = gettext(filename)
     progress['value'] = 50  # update the value after 50% of work completed
     master.update()  # update the window
     # fill in spaces to the PDF text
