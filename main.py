@@ -105,7 +105,8 @@ class Application(Frame):
         self.file = conv.readFile(self.filename, self.master)
 
 
-root = Tk()
-root.geometry()
-app = Application(master=root)
-app.mainloop()
+if __name__ == '__main__':
+    root = Tk()
+    root.geometry()
+    app = Application(master=root)
+    app.mainloop()
