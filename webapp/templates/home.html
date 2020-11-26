@@ -1,16 +1,18 @@
 {% extends "base.html" %}
-<!-- <link rel="style" href="style_guide.css"> -->
 
 {% block title %}Speed Reader{% endblock %}
 {% block content %}
 <h1>Home Page</h1>
 <p style="text-align: center">Welcome to Speed-Reader! We make reading documents super easy!</p>
 <p style="text-align: center">Link to our GitHub : <a href="https://github.com/hplaks106/Speed-Reader" target="_blank" rel="nofollow">https://github.com/hplaks106/Speed-Reader</a></p>
+<h1 style="text-align: center">Upload Image</h1>
+    <form style='text-align: center' method='POST' enctype='multipart/form-data'>
+        {{ form.csrf_token }}
+        {{ form.pdf }}
+        <button type='submit'>Upload</button>
+    </form>
+
 {% for word in list %}
-    <p style="text-align: center">{{word}}</p>
+    <p style="text-align: center">{{word}}&nbsp</p>
 {% endfor %}
-
-<!-- <input type="file" accept=".docx, .txt, .pdf"> -->
-
-
 {% endblock %}

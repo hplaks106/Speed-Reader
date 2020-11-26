@@ -1,5 +1,3 @@
-# Please make sure you have modules pdf, pdfminer, and subsequent modules.
-# import sys
 # PDF reader to parse file text
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
@@ -39,7 +37,7 @@ def pdfparser(data):
     return data
 
 
-def readFile(filename):
+def convert_pdf(filename):
     """Reads from filename and converts it into a list of strings."""
     list = pdfparser(filename)  # get PDF formatted as text
     # fill in spaces to the PDF text
