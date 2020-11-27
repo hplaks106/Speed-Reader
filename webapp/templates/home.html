@@ -1,18 +1,55 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/foznt-awesome.min.css">
 {% extends "base.html" %}
 
-{% block title %}Speed Reader{% endblock %}
-{% block content %}
-<h1>Home Page</h1>
-<p style="text-align: center">Welcome to Speed-Reader! We make reading documents super easy!</p>
-<p style="text-align: center">Link to our GitHub : <a href="https://github.com/hplaks106/Speed-Reader" target="_blank" rel="nofollow">https://github.com/hplaks106/Speed-Reader</a></p>
-<h1 style="text-align: center">Upload Image</h1>
-    <form style='text-align: center' method='POST' enctype='multipart/form-data'>
-        {{ form.csrf_token }}
-        {{ form.pdf }}
-        <button type='submit'>Upload</button>
-    </form>
+{% block header1 %}
+    <h4 class="w3-animate-bottom">Reading from left to right is outdated,</h4>
+{% endblock %}
 
-{% for word in list %}
-    <p style="text-align: center">{{word}}&nbsp</p>
-{% endfor %}
+{% block header2 %}
+  <div class="w3-padding-32">
+    <a href="/upload" class="w3-btn w3-xlarge w3-blue w3-hover-dark-grey w3-hover-text-amber" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">Get Started</a>
+  </div>
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="w3-row-padding w3-center w3-margin-top">
+        <div class="w3-third">
+          <div class="w3-card w3-container" style="min-height:450px">
+          <h3>Simple</h3><br>
+          <img src="static/images/brain.jpg" alt="Simple Image" style="width:50%">
+          <p>Built-in responsiveness</p>
+          <p>Mobile first fluid grid</p>
+          <p>Fits any screen sizes</p>
+          <p>PC Tablet and Mobile</p>
+          </div>
+        </div>
+
+        <div class="w3-third">
+          <div class="w3-card w3-container" style="min-height:450px">
+          <h3>Efficient</h3><br>
+          <img src="static/images/open_book.jpg" alt="Eye_book_fast" style="width:50%">
+          <p>Standard CSS only</p>
+          <p>Easy to learn</p>
+          <p>No need for jQuery</p>
+          <p>No JavaScript library</p>
+          </div>
+        </div>
+
+        <div class="w3-third">
+          <div class="w3-card w3-container" style="min-height:450px">
+          <h3>Open Source</h3><br>
+          <img src="static/images/github_logo.jpg" alt="GitHub Logo" style="width:50%">
+          <p>Paper like design</p>
+          <p>Bold colors and shadows</p>
+          <p>Equal across platforms</p>
+          <p>Equal across devices</p>
+          </div>
+        </div>
+    </div>
+</body>
 {% endblock %}

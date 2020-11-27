@@ -1,40 +1,77 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-        <title>{% block title %}{% endblock %}</title>
-    </head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     <body>
-        <nav class="navbar sticky-top navbar-dark" style="background-color: #000000;">
-          <a class="navbar-brand" href="/">
-              <img src="https://i.imgur.com/p2bdj4L.png" width='80' height='80' alt="logo">
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="tutorial">Tutorial</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about">About</a>
-              </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li> -->
-            </ul>
+    <!-- Side Navigation -->
+    <nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
+      <img src="static/images/logo.png" alt="Logo" style="width:50%">
+      <a href="/" class="w3-bar-item w3-button">Home</a>
+      <a href="/upload" class="w3-bar-item w3-button">Speed Read</a>
+      <a href="/tutorial" class="w3-bar-item w3-button">Tutorial</a>
+      <a href="/about" class="w3-bar-item w3-button">About</a>
+      <button class="w3-bar-item w3-button" onclick="w3_close()">Close <i class="fa fa-remove"></i></button>
+    </nav>
+
+    <!-- Header -->
+    <header class="w3-container w3-theme w3-padding" id="myHeader">
+      <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-button w3-theme"></i>
+      <div class="w3-center">
+          {% block header1 %}
+          {% endblock %}
+          <h1 class="w3-xxxlarge w3-animate-opacity">Speed-Reader</h1>
+          {% block header2 %}
+          {% endblock %}
+      </div>
+    </header>
+
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer head -->
+    <div class="w3-container w3-blue w3-center w3-opacity">
+        <div class="w3-center">
+          <!-- Pagination -->
+          <div class="w3-center w3-padding-32">
+            <div class="w3-bar">
+              <a href="/" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-amber">Home</a>
+              <a href="/upload" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-amber">Spead Read</a>
+              <a href="/tutorial" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-amber">Tutorial</a>
+              <a href="/about" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-amber">About</a>
+            </div>
           </div>
-        </nav>
-        {% block content %}
-        {% endblock %}
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-dark w3-padding-16">
+      <h3 style='text-align: center'>Speed-Reader</h3>
+      <div style="position:relative;bottom:55px;" class="w3-tooltip w3-right">
+        <span class="w3-text w3-theme-light w3-padding">Go To Top</span> 
+        <a class="w3-text-white" href="#myHeader"><span class="w3-xlarge">
+        <i class="fa fa-chevron-circle-up"></i></span></a>
+      </div>
+      <p style="text-align: center">Link to our GitHub:
+          <a href="https://github.com/hplaks106/Speed-Reader" target="_blank" rel="nofollow">https://github.com/hplaks106/Speed-Reader</a>
+      </p>
+    </footer>
+
+    <script>
+        // Side navigation
+        function w3_open() {
+          var x = document.getElementById("mySidebar");
+          x.style.width = "20%";
+          x.style.fontSize = "40px";
+          x.style.paddingTop = "10%";
+          x.style.display = "block";
+        }
+        function w3_close() {
+          document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
     </body>
 </html>

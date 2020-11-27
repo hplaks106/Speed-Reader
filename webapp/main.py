@@ -6,7 +6,7 @@ from flask_uploads import configure_uploads, UploadSet
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'key'
+app.config['SECRET_KEY'] = 'ThisKeyCanBeAnyString'
 app.config['UPLOADED_FILES_DEST'] = 'uploads/files'
 
 files = UploadSet('files', ['pdf'])
@@ -15,22 +15,21 @@ configure_uploads(app, files)
 class MyForm(FlaskForm):
     pdf  = FileField('pdf')
 
-@app.route('/home', methods=['GET', 'POST'])
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def home():
+    return render_template('home.html')
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_files():
+
     form = MyForm()
     list = []
+    filename = 'No file submitted...'
     if form.validate_on_submit():
         filename = files.save(form.pdf.data)
         list = conv.convert_pdf('uploads/files/' + filename)
-    # else:
-    #     return redirect('/')
-    return render_template('home.html', form=form, list=list)
 
-@app.route('/upload', methods=['POST', 'GET'])
-def upload_files():
-
-    return render_template('upload.html')
+    return render_template('upload.html', form=form, list=list, filename=filename)
 
 @app.route('/tutorial')
 def tutorial():

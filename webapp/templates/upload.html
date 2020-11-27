@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/foznt-awesome.min.css">
+{% extends "base.html" %}
+
+{% block content %}
+   <body>
+       <div class="w3-center">
+           <h1 class="w3-xxlarge w3-animate-opacity">Upload a File</h1>
+           <h4 class="w3-animate-left">it's as easy as that!</h4>
+           <h3 class="w3-small w3-animate-opacity">(We Accept .pdf, .txt, and .docx Files)</h3>
+       </div>
+
+       <div class="w3-row-padding w3-center w3-margin-top">
+           <div class="w3-center">
+             <div class="w3-card w3-container" style="min-height:200px">
+                 <h3>{{filename}}</h3><br>
+                 <div id="sequence" style='text-align: center' style="display:none"></div>
+                 <!-- NEW FUNCTIONALITY BUTTONS GO HERE -->
+             </div>
+           </div>
+       </div>
+       <form style='text-align: center' method='POST' enctype='multipart/form-data'>
+           {{ form.csrf_token }}
+           {{ form.pdf }}
+           <button type='submit'>Upload</button>
+       </form>
+
+       <script>
+           var example = {{ list|tojson }};
+           textSequence(0);
+           function textSequence(i) {
+               if (example.length > i) {
+                   setTimeout(function() {
+                       document.getElementById("sequence").innerHTML = example[i];
+                       textSequence(++i);
+                   }, 300); // 1 second (in milliseconds)
+               } else if (example.length == i) { // Loop
+                   textSequence(0);
+               }
+           }
+       </script>
+   </body>
+{% endblock %}
