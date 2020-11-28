@@ -22,6 +22,8 @@ mail = Mail(app)
 files = UploadSet('files', ['pdf'])
 configure_uploads(app, files)
 
+text_speed = 300
+
 class PDFForm(FlaskForm):
     pdf  = FileField('pdf')
 
@@ -34,21 +36,12 @@ class EmailForm(FlaskForm):
 
 def send_mail(name, sender, message):
 
-<<<<<<< HEAD
     msg = Message(subject = f'About page comment, {str(name)}',
                   sender = 'speedreadercomments@gmail.com',
                   recipients = ['speedreadercomments@gmail.com'])
 
     msg.body = str(message) + f'Sent from {str(sender)}'
     mail.send(msg)
-
-text_speed = 300
-=======
-    msg = Message(subject = f'About page comment, {str(name)}', sender = 'speedreadercomments@gmail.com', recipients = ['speedreadercomments@gmail.com'])
-    msg.body = str(message) + f'Sent from {str(sender)}'
-    mail.send(msg)
-
->>>>>>> c2084d0b588fbed239d7873e66722c6df86336e1
 
 @app.route('/')
 def home():
@@ -58,10 +51,7 @@ def home():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_files():
 
-<<<<<<< HEAD
     global text_speed
-=======
->>>>>>> c2084d0b588fbed239d7873e66722c6df86336e1
     form = PDFForm()
     list = []
     filename = 'No file submitted...'
@@ -78,10 +68,7 @@ def upload_files():
 def tutorial():
     return render_template('tutorial.html')
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c2084d0b588fbed239d7873e66722c6df86336e1
 @app.route('/about', methods=['GET', 'POST'])
 def about():
     form = EmailForm()
@@ -95,10 +82,7 @@ def about():
     else:
         flash("Something went wrong...")
         return render_template('about.html', form=form)
-<<<<<<< HEAD
-=======
 
->>>>>>> c2084d0b588fbed239d7873e66722c6df86336e1
 
 if __name__ == "__main__":
     app.run(debug=True)
