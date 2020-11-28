@@ -66,7 +66,7 @@ def upload_files():
 def reader():
     if 'filename' in session:
         filename = session['filename']
-        session['list'] = conv.convert_pdf('uploads/files/' + filename)
+        session['list'] = conv.readFile('uploads/files/' + filename)
     else:
         filename = 'No file selected...'
 
