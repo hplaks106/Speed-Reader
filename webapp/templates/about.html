@@ -59,21 +59,22 @@
       <h3>Straight Outta Space Coast <img src="static/images/rocket.png" alt="Rocketship Img" style="width:10%"></h3>
       <p>Feel free to ask questions or even tell us what you think!</p>
       <p><i class="fa fa-map-marker w3-text-blue w3-xlarge"></i> Melbourne, FL</p>
-      <p><i class="fa fa-envelope-o w3-text-blue w3-xlarge"></i> speed-reader@gmail.com</p>
+      <p><i class="fa fa-envelope-o w3-text-blue w3-xlarge"></i> SpeedReaderComments@gmail.com</p>
     </div>
     <div class="w3-col m7">
-      <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">
+      <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/about" target="_blank", method='POST'>
+          {{ form.csrf_token }}
       <div class="w3-section">
         <label>Name</label>
-        <input class="w3-input" type="text" name="Name" required>
+        {{ form.Name }}
       </div>
       <div class="w3-section">
         <label>Email</label>
-        <input class="w3-input" type="text" name="Email" required>
+        {{ form.Email }}
       </div>
       <div class="w3-section">
         <label>Message</label>
-        <input class="w3-input" type="text" name="Message" required>
+        {{ form.Message }}
       </div>
       <input class="w3-check" type="checkbox" checked name="Like">
       <label>Leave a like!<img src="static/images/like_heart.jpg" alt="Like Heart Img" style="width:5%"></label>
