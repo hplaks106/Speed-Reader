@@ -22,6 +22,8 @@ mail = Mail(app)
 files = UploadSet('files', ['pdf'])
 configure_uploads(app, files)
 
+text_speed = 300
+
 class PDFForm(FlaskForm):
     pdf  = FileField('pdf')
 
@@ -34,10 +36,12 @@ class EmailForm(FlaskForm):
 
 def send_mail(name, sender, message):
 
-    msg = Message(subject = f'About page comment, {str(name)}', sender = 'speedreadercomments@gmail.com', recipients = ['speedreadercomments@gmail.com'])
+    msg = Message(subject = f'About page comment, {str(name)}',
+                  sender = 'speedreadercomments@gmail.com',
+                  recipients = ['speedreadercomments@gmail.com'])
+
     msg.body = str(message) + f'Sent from {str(sender)}'
     mail.send(msg)
-
 
 @app.route('/')
 def home():
@@ -47,14 +51,17 @@ def home():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_files():
 
+    global text_speed
     form = PDFForm()
     list = []
     filename = 'No file submitted...'
     if form.validate_on_submit():
         filename = files.save(form.pdf.data)
         list = conv.convert_pdf('uploads/files/' + filename)
+        redirect(url_for('upload_files'))
 
-    return render_template('upload.html', form=form, list=list, filename=filename)
+    return render_template('upload.html', form=form, list=list,
+                            text_speed=text_speed, filename=filename)
 
 
 @app.route('/tutorial')

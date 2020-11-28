@@ -28,15 +28,55 @@
            <button type='submit'>Upload</button>
        </form>
 
+        <!-- <form style='text-align: center' method="POST">
+            <input type="submit" value="Pause" action="<script type='text/javascript'>var speed = 30</script>"/>
+        </form> -->
+
+       <form style='text-align: center' method='POST' action='/upload'>
+           <div class="w3-center">
+               <div class="w3-bar w3-center" style="width:50%">
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black" name="reset_btn" style="width:33.3%">
+                       <h3>&#10226; &nbsp; Reset</h3>
+                   </button>
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black" name="pause_btn" value="0" style="width:33.3%" >
+                      <h3>&#9612;&#9612; &nbsp; Pause</h3>
+                   </button>
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black" name="play_btn" style="width:33.3%">
+                       <h3>&#9658 &nbsp; Play</h3>
+                   </button>
+                </div>
+            </div>
+            <div class="w3-center">
+                <div class="w3-bar w3-center" style="width:50%">
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                        <h3>100</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                       <h3>150</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                        <h3>200</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                       <h3>250</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                        <h3>300</h3>
+                    </button>
+                 </div>
+             </div>
+       </form>
+
        <script>
            var example = {{ list|tojson }};
+           var speed = {{ text_speed|tojson }};
            textSequence(0);
            function textSequence(i) {
                if (example.length > i) {
                    setTimeout(function() {
                        document.getElementById("sequence").innerHTML = example[i];
                        textSequence(++i);
-                   }, 300); // 1 second (in milliseconds)
+                   }, speed) // 1 second (in milliseconds)
                } else if (example.length == i) { // Loop
                    textSequence(0);
                }
