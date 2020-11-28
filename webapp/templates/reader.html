@@ -1,0 +1,82 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/foznt-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% extends "base.html" %}
+
+{% block content %}
+    <body>
+        <div class="w3-row-padding w3-center w3-margin-top">
+           <div class="w3-center">
+             <div class="w3-card w3-container" style="min-height:200px">
+                 <h3>{{filename}}</h3><br>
+                 <div id="sequence" style='text-align: center' style="display:none"></div>
+             </div>
+           </div>
+       </div>
+       <form style='text-align: center' method='POST' action='/reader'>
+           <div class="w3-center">
+               <div class="w3-bar w3-center" style="width:50%">
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black" name="reset_btn" style="width:33.3%">
+                       <h3>&#10226; &nbsp; Reset</h3>
+                   </button>
+                   <button id="btn1" class="w3-bar-item w3-button w3-xlarge w3-black" style="width:33.3%" >
+                      <h3>&#9612;&#9612; &nbsp; Pause</h3>
+                   </button>
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black" name="play_btn" style="width:33.3%">
+                       <h3>&#9658 &nbsp; Play</h3>
+                   </button>
+                </div>
+            </div>
+            <input id="slide" type="range" min="100" max="300" step="50" value="200">
+            <div class="w3-center">
+                <div class="w3-bar w3-center" style="width:50%">
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                        <h3>100</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                       <h3>150</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                        <h3>200</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                       <h3>250</h3>
+                    </button>
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey" style="width:20%" >
+                        <h3>300</h3>
+                    </button>
+                 </div>
+             </div>
+       </form>
+       <script>
+           function sleep(ms) {
+               return new Promise(resolve => setTimeout(resolve, ms));
+           }
+           let i = 0
+           var example = {{ list|tojson }};
+           let speed = (60 / 200) * 1000
+           const slider = document.getElementById('slide');
+
+           slider.addEventListener('change', (e) => {
+               speed = (60 / e.target.value) * 1000
+               // console.log(speed)
+           })
+
+           const updateword = async() => {
+               if (i == example.length){
+                   i = 0
+               }
+               console.log(speed)
+               await sleep(speed)
+               document.getElementById("sequence").innerHTML = example[i];
+               console.log('updated the word')
+               i++
+               updateword()
+           }
+           updateword()
+       </script>
+   </body>
+{% endblock %}
