@@ -1,19 +1,47 @@
-from flask import Flask, redirect, url_for, render_template, request, session
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 import file_convert as conv
 from flask_wtf import FlaskForm
-from wtforms import FileField
+from wtforms import FileField, StringField
 from flask_uploads import configure_uploads, UploadSet
+from flask_mail import Mail, Message
 
+mail = Mail()
 app = Flask(__name__)
+mail.init_app(app)
 
 app.config['SECRET_KEY'] = 'ThisKeyCanBeAnyString'
 app.config['UPLOADED_FILES_DEST'] = 'uploads/files'
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'speedreadercomments@gmail.com'
+app.config['MAIL_PASSWORD'] = 'spam@1234'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 files = UploadSet('files', ['pdf'])
 configure_uploads(app, files)
 
-class MyForm(FlaskForm):
+class PDFForm(FlaskForm):
     pdf  = FileField('pdf')
+
+
+class EmailForm(FlaskForm):
+    Name = StringField('Name')
+    Email = StringField('Email')
+    Message = StringField('Message')
+
+
+def send_mail(name, sender, message):
+
+    msg = Message(subject = f'About page comment, {str(name)}',
+                  sender = 'speedreadercomments@gmail.com',
+                  recipients = ['speedreadercomments@gmail.com'])
+
+    msg.body = str(message) + f'Sent from {str(sender)}'
+    mail.send(msg)
+
+text_speed = 300
 
 @app.route('/')
 def home():
@@ -22,24 +50,35 @@ def home():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_files():
 
-    form = MyForm()
+    global text_speed
+    form = PDFForm()
     list = []
     filename = 'No file submitted...'
     if form.validate_on_submit():
         filename = files.save(form.pdf.data)
         list = conv.convert_pdf('uploads/files/' + filename)
+        redirect(url_for('upload_files'))
 
-    return render_template('upload.html', form=form, list=list, filename=filename)
+    return render_template('upload.html', form=form, list=list,
+                            text_speed=text_speed, filename=filename)
 
 @app.route('/tutorial')
 def tutorial():
     return render_template('tutorial.html')
 
-@app.route('/about')
+@app.route('/about', methods=['GET', 'POST'])
 def about():
-    return render_template('about.html')
-
-
+    form = EmailForm()
+    if form.validate_on_submit():
+        name = form.Name
+        email = form.Email
+        message = form.Message
+        send_mail(name, email, message)
+        flash("Thanks!")
+        return redirect(url_for('about'))
+    else:
+        flash("Something went wrong...")
+        return render_template('about.html', form=form)
 
 if __name__ == "__main__":
     app.run(debug=True)
