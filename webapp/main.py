@@ -4,12 +4,14 @@ from flask_wtf import FlaskForm
 from wtforms import FileField, StringField
 from flask_uploads import configure_uploads, UploadSet
 from flask_mail import Mail, Message
+from datetime import timedelta
 
 mail = Mail()
 app = Flask(__name__)
 mail.init_app(app)
+app.permanent_session_lifetime = timedelta(minutes=5)
 
-app.config['SECRET_KEY'] = 'ThisKeyCanBeAnyString'
+app.config['SECRET_KEY'] = 'Key'
 app.config['UPLOADED_FILES_DEST'] = 'uploads/files'
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -21,8 +23,6 @@ mail = Mail(app)
 
 files = UploadSet('files', ['pdf'])
 configure_uploads(app, files)
-
-text_speed = 300
 
 class PDFForm(FlaskForm):
     pdf  = FileField('pdf')
@@ -50,19 +50,32 @@ def home():
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_files():
-
-    global text_speed
     form = PDFForm()
-    list = []
     filename = 'No file submitted...'
     if form.validate_on_submit():
+        session.permanent = True
         filename = files.save(form.pdf.data)
-        list = conv.convert_pdf('uploads/files/' + filename)
-        redirect(url_for('upload_files'))
+        session['filename'] = filename
+        return redirect(url_for('reader', filename=filename))
+    else:
+        return render_template('upload.html', form=form)
 
-    return render_template('upload.html', form=form, list=list,
-                            text_speed=text_speed, filename=filename)
 
+
+@app.route('/reader', methods=['GET', 'POST'])
+def reader():
+    if 'filename' in session:
+        filename = session['filename']
+        session['list'] = conv.convert_pdf('uploads/files/' + filename)
+    else:
+        filename = 'No file selected...'
+
+    if 'list' in session:
+        list = session['list']
+    else:
+        list = ['Need', 'to', 'upload', 'a', 'file']
+
+    return render_template('reader.html', list=list, filename=filename)
 
 @app.route('/tutorial')
 def tutorial():
