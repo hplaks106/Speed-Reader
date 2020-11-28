@@ -38,12 +38,6 @@ def pdfparser(data):
 
 def convert_pdf(filename):
     """Reads from filename and converts it into a list of strings."""
-    # progress bar to show progress to user
-    progress = Progressbar(master, orient='horizontal', length=400,
-                           mode='determinate')
-    progress.pack(side=BOTTOM, padx=5, pady=5)  # Placment and padding
-    progress['value'] = 25  # update progress bar value
-    master.update()  # update the window
     list = pdfparser(filename)  # get PDF formatted as text
     # fill in spaces to the PDF text
     for x in range(0, len(list)):
