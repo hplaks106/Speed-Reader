@@ -1,0 +1,86 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/foznt-awesome.min.css">
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
+
+<div class="w3-quarter">
+<h2>Developed In:</h2>
+<p>We developed Speed-Reader in various languages to create the best software it can be.</p>
+</div>
+
+<div class="w3-quarter">
+<div class="w3-card w3-white">
+    <img src="static/images/python_logo.jpg" alt="Python Logo" style="width:100%">
+  <div class="w3-container">
+  <h3>Python</h3>
+  <h4>Backend</h4>
+  <p>Flask</p>
+  <p>SQL</p>
+  </div>
+  </div>
+</div>
+
+<div class="w3-quarter">
+<div class="w3-card w3-white">
+    <img src="static/images/html_logo.png" alt="Python Logo" style="width:100%">
+  <div class="w3-container">
+  <h3>Html</h3>
+  <h4>Frontend</h4>
+  <p>Bootstrap</p>
+  <p>W3</p>
+  </div>
+  </div>
+</div>
+
+<div class="w3-quarter">
+<div class="w3-card w3-white">
+    <img src="static/images/js_logo.png" alt="Python Logo" style="width:100%">
+  <div class="w3-container">
+  <h3>JavaScript</h3>
+  <h4>Frontend</h4>
+  <p>json</p>
+  <p>Scripts</p>
+  </div>
+  </div>
+</div>
+</div>
+
+<!-- Contact Container -->
+<div class="w3-container w3-padding-64" id="contact">
+  <div class="w3-row">
+    <div class="w3-col m5">
+    <div class="w3-padding-16"><span class="w3-xlarge w3-border-blue w3-bottombar">Contact Us</span></div>
+      <h3>Straight Outta Space Coast <img src="static/images/rocket.png" alt="Rocketship Img" style="width:10%"></h3>
+      <p>Feel free to ask questions or even tell us what you think!</p>
+      <p><i class="fa fa-map-marker w3-text-blue w3-xlarge"></i> Melbourne, FL</p>
+      <p><i class="fa fa-envelope-o w3-text-blue w3-xlarge"></i> SpeedReaderComments@gmail.com</p>
+    </div>
+    <div class="w3-col m7">
+      <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/about" target="_blank", method='POST'>
+          {{ form.csrf_token }}
+      <div class="w3-section">
+        <label>Name</label>
+        {{ form.Name }}
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        {{ form.Email }}
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        {{ form.Message }}
+      </div>
+      <input class="w3-check" type="checkbox" checked name="Like">
+      <label>Leave a like!<img src="static/images/like_heart.jpg" alt="Like Heart Img" style="width:5%"></label>
+      <button type="submit" class="w3-button w3-right w3-theme">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

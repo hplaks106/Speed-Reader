@@ -1,4 +1,7 @@
 # Byte-compiled / optimized / DLL files
+<<<<<<< HEAD
 
+=======
+>>>>>>> c2084d0b588fbed239d7873e66722c6df86336e1
 __pycache__/
 *.pyc
