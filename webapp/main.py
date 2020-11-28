@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 import file_convert as conv
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField
-from flask_uploads import configure_uploads, UploadSet
+from flask_uploads import configure_uploads, UploadSet, ALL
 from flask_mail import Mail, Message
 from datetime import timedelta
 
@@ -21,7 +21,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
-files = UploadSet('files', ['pdf'])
+files = UploadSet('files', ALL)
 configure_uploads(app, files)
 
 class PDFForm(FlaskForm):
