@@ -73,7 +73,7 @@ def reader():
     if 'list' in session:
         list = session['list']
     else:
-        list = ['Need', 'to', 'upload', 'a', 'file!']
+        list = ['Need', 'to', 'upload', 'a', 'file']
 
     return render_template('reader.html', list=list, filename=filename)
 

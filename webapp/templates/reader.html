@@ -11,21 +11,24 @@
         <div class="w3-row-padding w3-center w3-margin-top">
            <div class="w3-center">
              <div class="w3-card w3-container" style="min-height:200px">
-                 <h3>{{filename}}</h3><br>
-                 <div id="sequence" style='text-align: center' style="display:none"></div>
+                 <h4>{{filename}}</h4><br>
+                 <h1 id="sequence" style='text-align: center' style="display:none"></h1>
              </div>
            </div>
        </div>
-       <form style='text-align: center' method='POST' action='/reader'>
+       <form style='text-align: center' class="w3-margin-top" method='POST' action='/reader'>
            <div class="w3-center">
                <div class="w3-bar w3-center" style="width:50%">
-                   <button class="w3-bar-item w3-button w3-xlarge w3-black w3-hover-dark-grey w3-hover-text-amber" onclick="restart_file(); return false;" style="width:33.3%">
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black w3-hover-dark-grey w3-hover-text-amber"
+                            onclick="restart_file(); return false;" style="width:33.3%">
                        <h3>&#10226; &nbsp; Reset</h3>
                    </button>
-                   <button class="w3-bar-item w3-button w3-xlarge w3-black w3-hover-dark-grey w3-hover-text-amber" onclick="pause(); return false;" style="width:33.3%" >
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black w3-hover-dark-grey w3-hover-text-amber"
+                            onclick="pause(); return false;" style="width:33.3%" >
                       <h3>&#9612;&#9612; &nbsp; Pause</h3>
                    </button>
-                   <button class="w3-bar-item w3-button w3-xlarge w3-black w3-hover-dark-grey w3-hover-text-amber" onclick="play(); return false;" style="width:33.3%">
+                   <button class="w3-bar-item w3-button w3-xlarge w3-black w3-hover-dark-grey w3-hover-text-amber"
+                            onclick="play(); return false;" style="width:33.3%">
                        <h3>&#9658 &nbsp; Play</h3>
                    </button>
                 </div>
@@ -35,19 +38,24 @@
                     </div>
                 </div>
                 <div class="w3-bar w3-center" style="width:50%">
-                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-amber" onclick="change_speed(100); return false;" style="width:20%" >
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-black"
+                            onclick="change_speed(100); return false;" style="width:20%" >
                         <h3>100</h3>
                     </button>
-                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-amber" onclick="change_speed(150); return false;" style="width:20%" >
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-black"
+                            onclick="change_speed(150); return false;" style="width:20%" >
                        <h3>150</h3>
                     </button>
-                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-amber" onclick="change_speed(200); return false;" style="width:20%" >
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-black"
+                            onclick="change_speed(200); return false;" style="width:20%" >
                         <h3>200</h3>
                     </button>
-                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-amber" onclick="change_speed(250); return false;" style="width:20%" >
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-black"
+                            onclick="change_speed(250); return false;" style="width:20%" >
                        <h3>250</h3>
                     </button>
-                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-amber" onclick="change_speed(300); return false;" style="width:20%" >
+                    <button class="w3-bar-item w3-button w3-xlarge w3-dark-grey w3-hover-grey w3-hover-text-black"
+                            onclick="change_speed(300); return false;" style="width:20%" >
                         <h3>300</h3>
                     </button>
                  </div>
