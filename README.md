@@ -2,18 +2,64 @@
 Reading from left to right is outdated and slow. This project allows one to choose a file and make the words appear in one location, greatly increasing the speed of reading and comprehension.
 
 ## Dependencies
-tkinter     [documentation](https://docs.python.org/3/library/tk.html)
+[tkinter](https://docs.python.org/3/library/tk.html)
+```sh
+$ pip install tkinter
+```
+```sh
+$ python3 -m pip install tkinter
+```
 
-flask       [documentation](https://flask-doc.readthedocs.io/en/latest/)
+[flask](https://flask-doc.readthedocs.io/en/latest/)
+```sh
+$ pip install Flask
+```
+```sh
+$ python3 -m pip install Flask
+```
 
-flask_wtf   [documentation](https://flask-wtf.readthedocs.io/en/stable/)
+[flask_wtf](https://flask-wtf.readthedocs.io/en/stable/)
+```sh
+$ pip install Flask-WTF
+```
+```sh
+$ python3 -m pip install Flask-WTF
+```
 
-wtforms     [documentation](https://wtforms.readthedocs.io/en/2.3.x/)
+[wtforms](https://wtforms.readthedocs.io/en/2.3.x/)
+```sh
+$ pip install WTForms
+```
+```sh
+$ python3 -m pip install WTForms
+```
 
-flask-reuploaded(flask_uploads)
-            [documentation](https://pypi.org/project/Flask-Reuploaded/)
+[flask-reuploaded(flask_uploads)](https://pypi.org/project/Flask-Reuploaded/)
+```sh
+$ pip install flask-reuploaded
+```
+```sh
+$ python3 -m pip install flask-reuploaded
+```
 
-W3.CSS      [documentation](https://www.w3schools.com/w3css/default.asp)
+[Flask-Mail](https://pythonhosted.org/Flask-Mail/)
+```sh
+$ pip install Flask-Mail
+```
+```sh
+$ python3 -m pip install Flask-Mail
+```
+
+[datetime](https://docs.python.org/3/library/datetime.html)
+```sh
+$ pip install datetime
+```
+```sh
+$ python3 -m pip install datetime
+```
+
+[W3.CSS](https://www.w3schools.com/w3css/default.asp)
+
 
 ## How to run
 To run the tkinter program with interactive GUI
