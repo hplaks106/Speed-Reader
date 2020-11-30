@@ -56,7 +56,7 @@ def upload_files():
         session.permanent = True
         filename = files.save(form.pdf.data)
         session['filename'] = filename
-        return redirect(url_for('reader', filename=filename))
+        return redirect(url_for('reader'))
     else:
         return render_template('upload.html', form=form)
 
@@ -73,7 +73,7 @@ def reader():
     if 'list' in session:
         list = session['list']
     else:
-        list = ['Need', 'to', 'upload', 'a', 'file']
+        list = ['Need', 'to', 'upload', 'a', 'file!']
 
     return render_template('reader.html', list=list, filename=filename)
 
