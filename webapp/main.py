@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 import file_convert as conv
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField
-from flask_uploads import configure_uploads, UploadSet
+from flask_uploads import configure_uploads, UploadSet, ALL
 from flask_mail import Mail, Message
 from datetime import timedelta
 
@@ -21,7 +21,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
-files = UploadSet('files', ['pdf'])
+files = UploadSet('files', ALL)
 configure_uploads(app, files)
 
 class PDFForm(FlaskForm):
@@ -56,7 +56,7 @@ def upload_files():
         session.permanent = True
         filename = files.save(form.pdf.data)
         session['filename'] = filename
-        return redirect(url_for('reader', filename=filename))
+        return redirect(url_for('reader'))
     else:
         return render_template('upload.html', form=form)
 
@@ -66,14 +66,14 @@ def upload_files():
 def reader():
     if 'filename' in session:
         filename = session['filename']
-        session['list'] = conv.convert_pdf('uploads/files/' + filename)
+        session['list'] = conv.readFile('uploads/files/' + filename)
     else:
         filename = 'No file selected...'
 
     if 'list' in session:
         list = session['list']
     else:
-        list = ['Need', 'to', 'upload', 'a', 'file']
+        list = ['Need', 'to', 'upload', 'a', 'file!']
 
     return render_template('reader.html', list=list, filename=filename)
 

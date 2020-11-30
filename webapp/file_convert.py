@@ -3,6 +3,10 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 from pdfminer.converter import TextConverter  # XMLConverter, HTMLConverter,
 from pdfminer.layout import LAParams
+<<<<<<< HEAD
+=======
+import docx
+>>>>>>> 89a008d89659fbe111a2150b9b2d43bc9c4833dd
 import io
 
 
@@ -36,9 +40,39 @@ def pdfparser(data):
     return data
 
 
-def convert_pdf(filename):
+def convertTxt(name_of_file):
+    """Converts the file to txt and returns as a string"""
+    opened = open(name_of_file, "rb")
+    text = ""
+    for line in opened:
+        text = text + " " + line.decode("utf-8").rstrip()
+    return text
+
+
+def convertDocx(filename):
+    """Reutrns string extracted from a docx file"""
+    doc = docx.Document(filename)
+    extracted = []
+    for para in doc.paragraphs:
+        extracted.append(para.text)
+    return '\n'.join(extracted)
+
+
+def gettext(name_of_file):
+    "returns a string of text from the appropriate file type inputed"
+    return_string = ""
+    if name_of_file.find(".txt") != -1:
+        return_string = convertTxt(name_of_file)
+    elif name_of_file.find(".pdf") != -1:
+        return_string = pdfparser(name_of_file)
+    elif name_of_file.find(".docx") != -1:
+        return_string = convertDocx(name_of_file)
+    return return_string
+
+
+def readFile(filename):
     """Reads from filename and converts it into a list of strings."""
-    list = pdfparser(filename)  # get PDF formatted as text
+    list = gettext(filename)  # get PDF formatted as text
     # fill in spaces to the PDF text
     for x in range(0, len(list)):
         if len(list) > x and filter(list[x]):
