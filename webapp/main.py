@@ -61,7 +61,6 @@ def upload_files():
         return render_template('upload.html', form=form)
 
 
-
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
     if 'filename' in session:
