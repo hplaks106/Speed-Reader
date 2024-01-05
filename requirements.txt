@@ -4,7 +4,7 @@ packaging==20.4
 pdfminer==20191125
 py==1.10.0
 pycodestyle==2.6.0
-pycryptodome==3.9.9
+pycryptodome==3.19.1
 pyflakes==2.2.0
 pytest==6.1.2
 pytest-cov==2.10.1
